@@ -153,6 +153,9 @@ class BaslerMouseRecorder():
     def cam_start_writing_frames(self, c, serial):
         if self.use_bedsy:
             c.StartGrabbing(pylon.GrabStrategy_LatestImageOnly)
+            #From Aaron: Ich vermute das mit den 6 cameras manchmal es daurets ein tick zu lagen die frame zu speichern/coderien. Mit die GrabStrategy_LatestImageOnly
+            # wird dann immer nur die neueste frame geholt und dadurch wird frames verloren. Mann konnte GrabStrategy_OneByOne nutzen aber dann muss die loop geandert zu
+            # holen alle verfugbare frames. Wir haben scnhell versucht mit mpeg4 statt h264 zu gucken ob es lag an die codec aber hab die gleiche ergebniss.
         else:
             c.StartGrabbing()
         #time.sleep(3)
